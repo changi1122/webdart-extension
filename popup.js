@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     async function loadBookmarks() {
         const data = await chrome.storage.local.get("bookmarks");
         bookmarks = data.bookmarks || [];
+
         filterAndSort();
     }
     
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     function renderBookmarks(bookmarkGroups) {
         bookmarkList.innerHTML = "";
-        Object.entries(bookmarkGroups).forEach(([domain, items]) => {
+        Object.entries(bookmarkGroups).forEach(([domain, items], idx) => {
             const button = document.createElement("button");
             button.className = "accordion";
             button.textContent = `${domain} (${items.length})`;
@@ -49,6 +50,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 button.classList.toggle("active");
             });
             
+            if (idx === 0) {
+                panel.style.display = panel.style.display === "block" ? "none" : "block";
+                button.classList.toggle("active");
+            }
+
             bookmarkList.appendChild(button);
             bookmarkList.appendChild(panel);
         });
