@@ -40,21 +40,65 @@ document.addEventListener("DOMContentLoaded", async () => {
             items.forEach(({ title, url, position, datetime }) => {
                 const item = document.createElement("div");
                 item.className = "bookmark-item";
-                item.textContent = `${title}\n${url}\n${Math.round(position * 100)}%\n${datetime}`;
+    
+                // 왼쪽 컨텐츠 영역
+                const leftContent = document.createElement("div");
+                leftContent.className = "bookmark-left";
+    
+                const titleElem = document.createElement("div");
+                titleElem.className = "bookmark-title";
+                titleElem.textContent = title;
+    
+                const detailsElem = document.createElement("div");
+                detailsElem.className = "bookmark-details";
+    
+                const dateSpan = document.createElement("div");
+                dateSpan.textContent = formatDateTime(datetime);
+    
+                const urlSpan = document.createElement("div");
+                urlSpan.textContent = url;
+    
+                detailsElem.appendChild(dateSpan);
+                detailsElem.appendChild(urlSpan);
+    
+                leftContent.appendChild(titleElem);
+                leftContent.appendChild(detailsElem);
+    
+                // 오른쪽 position 영역 + 삭제 버튼
+                const rightContent = document.createElement("div");
+                rightContent.className = "bookmark-right";
+    
+                const positionText = document.createElement("span");
+                positionText.textContent = `${Math.round(position * 100)}%`;
+    
+                const deleteButton = document.createElement("button");
+                deleteButton.className = "delete-button";
+                deleteButton.innerHTML = "❌";
+                deleteButton.addEventListener("click", async (event) => {
+                    event.stopPropagation(); // 부모 요소 클릭 이벤트 방지
+                    removeBookmark(url); // 삭제 함수 호출
+                });
+    
+                rightContent.appendChild(positionText);
+                rightContent.appendChild(deleteButton);
+    
+                item.appendChild(leftContent);
+                item.appendChild(rightContent);
+    
                 item.addEventListener("click", () => navigateToPosition(url, position));
                 panel.appendChild(item);
             });
-            
+    
             button.addEventListener("click", () => {
                 panel.style.display = panel.style.display === "block" ? "none" : "block";
                 button.classList.toggle("active");
             });
-            
+    
             if (idx === 0) {
-                panel.style.display = panel.style.display === "block" ? "none" : "block";
+                panel.style.display = "block";
                 button.classList.toggle("active");
             }
-
+    
             bookmarkList.appendChild(button);
             bookmarkList.appendChild(panel);
         });
@@ -88,6 +132,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             });
         });
+    }
+
+    function formatDateTime(datetime) {
+        const date = new Date(datetime);
+        return new Intl.DateTimeFormat("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false, // 24시간 형식
+        }).format(date);
     }
 
     function scrollToPosition(tabId, position) {
@@ -130,6 +186,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         const grouped = paginatedBookmarks.length > 0 ? groupBookmarksByDomain(paginatedBookmarks) : {};
         renderBookmarks(grouped);
         updatePagination();
+    }
+
+    function removeBookmark(url) {
+        // 저장된 북마크 데이터를 가져와서 삭제
+        chrome.storage.local.get(["bookmarks"], async (data) => {
+            let bookmarks = data.bookmarks || [];
+            bookmarks = bookmarks.filter((bookmark) => bookmark.url !== url);
+            await chrome.storage.local.set({ bookmarks });
+            await loadBookmarks(); // UI 업데이트
+        });
     }
 
     
