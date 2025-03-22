@@ -9,19 +9,22 @@
         body { font-family: Arial, sans-serif; width: 300px; padding: 10px; }
         .accordion { cursor: pointer; padding: 10px; width: 100%; border: none; text-align: left; outline: none; font-size: 16px; transition: 0.3s; }
         .accordion.active { font-weight: bold; }
-        .panel { display: none; padding: 5px 10px; overflow: hidden; }
+        .panel { display: none; padding: 5px 0; overflow: hidden; }
         /* .bookmark-item { cursor: pointer; padding: 5px; border-bottom: 1px solid #ddd; } */
         .pagination { display: flex; justify-content: center; margin-top: 10px; }
         .pagination button { margin: 0 5px; cursor: pointer; }
-        .search-box { width: 100%; padding: 5px; margin-bottom: 10px; }
+        .search-box { width: 100%; padding: 5px; margin-bottom: 10px; box-sizing: border-box; }
 
         .bookmark-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #ddd; cursor: pointer; }
-        .bookmark-left { flex-grow: 1; }
-        .bookmark-title { font-size: 16px; font-weight: bold; }
+        .bookmark-left { flex-grow: 1; width: 198px; }
+        .bookmark-title { font-size: 15px; margin-bottom: 4px; }
         .bookmark-details { font-size: 12px; color: gray; }
-        .bookmark-right { font-size: 18px; font-weight: bold; color: #007bff; margin-left: 10px; min-width: 50px; text-align: right; }
-        .delete-button { background: none; border: none; color: red; font-size: 16px; cursor: pointer; margin-left: 10px;}
-        .delete-button:hover { color: darkred; }
+        .bookmark-date { margin-bottom: 2px; }
+        .bookmark-right { font-size: 14px; font-weight: bold; color: #007bff; margin-left: 10px; min-width: 50px; text-align: right; display: inline-flex; align-items: center; }
+        .delete-button { background: none; border: none; color: gray; font-size: 16px; cursor: pointer; margin-left: 10px; display: inline-flex; }
+        .delete-button:hover { color: black; }
+
+        .ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
     </style>
 </head>
 <body>

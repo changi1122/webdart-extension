@@ -29,74 +29,61 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     function renderBookmarks(bookmarkGroups) {
         bookmarkList.innerHTML = "";
+    
         Object.entries(bookmarkGroups).forEach(([domain, items], idx) => {
             const button = document.createElement("button");
-            button.className = "accordion";
+            button.className = "accordion ellipsis";
             button.textContent = `${domain} (${items.length})`;
-            
+    
             const panel = document.createElement("div");
             panel.className = "panel";
-            
-            items.forEach(({ title, url, position, datetime }) => {
-                const item = document.createElement("div");
-                item.className = "bookmark-item";
     
-                // 왼쪽 컨텐츠 영역
-                const leftContent = document.createElement("div");
-                leftContent.className = "bookmark-left";
+            // 템플릿으로 HTML 구조 생성
+            panel.innerHTML = items.map(({ title, url, position, datetime }) => `
+                <div class="bookmark-item" data-url="${url}" data-position="${position}">
+                    <div class="bookmark-left">
+                        <div class="bookmark-title ellipsis">${title}</div>
+                        <div class="bookmark-details">
+                            <div class="bookmark-date ellipsis">${formatDateTime(datetime)}</div>
+                            <div class="ellipsis">${url}</div>
+                        </div>
+                    </div>
+                    <div class="bookmark-right">
+                        <span>${Math.round(position * 100)}%</span>
+                        <button class="delete-button" aria-label="Delete">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                                <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join("");
     
-                const titleElem = document.createElement("div");
-                titleElem.className = "bookmark-title";
-                titleElem.textContent = title;
-    
-                const detailsElem = document.createElement("div");
-                detailsElem.className = "bookmark-details";
-    
-                const dateSpan = document.createElement("div");
-                dateSpan.textContent = formatDateTime(datetime);
-    
-                const urlSpan = document.createElement("div");
-                urlSpan.textContent = url;
-    
-                detailsElem.appendChild(dateSpan);
-                detailsElem.appendChild(urlSpan);
-    
-                leftContent.appendChild(titleElem);
-                leftContent.appendChild(detailsElem);
-    
-                // 오른쪽 position 영역 + 삭제 버튼
-                const rightContent = document.createElement("div");
-                rightContent.className = "bookmark-right";
-    
-                const positionText = document.createElement("span");
-                positionText.textContent = `${Math.round(position * 100)}%`;
-    
-                const deleteButton = document.createElement("button");
-                deleteButton.className = "delete-button";
-                deleteButton.innerHTML = "❌";
-                deleteButton.addEventListener("click", async (event) => {
-                    event.stopPropagation(); // 부모 요소 클릭 이벤트 방지
-                    removeBookmark(url); // 삭제 함수 호출
-                });
-    
-                rightContent.appendChild(positionText);
-                rightContent.appendChild(deleteButton);
-    
-                item.appendChild(leftContent);
-                item.appendChild(rightContent);
+            // 이벤트 바인딩
+            panel.querySelectorAll(".bookmark-item").forEach(item => {
+                const url = item.dataset.url;
+                const position = parseFloat(item.dataset.position);
     
                 item.addEventListener("click", () => navigateToPosition(url, position));
-                panel.appendChild(item);
+    
+                const deleteBtn = item.querySelector(".delete-button");
+                deleteBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    removeBookmark(url);
+                });
             });
     
+            // 아코디언 기능
             button.addEventListener("click", () => {
-                panel.style.display = panel.style.display === "block" ? "none" : "block";
-                button.classList.toggle("active");
+                const isOpen = panel.style.display === "block";
+                panel.style.display = isOpen ? "none" : "block";
+                button.classList.toggle("active", !isOpen);
             });
     
+            // 첫 항목은 열어두기
             if (idx === 0) {
                 panel.style.display = "block";
-                button.classList.toggle("active");
+                button.classList.add("active");
             }
     
             bookmarkList.appendChild(button);
@@ -136,8 +123,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function formatDateTime(datetime) {
         const date = new Date(datetime);
-        return new Intl.DateTimeFormat("ko-KR", {
-            year: "numeric",
+        return new Intl.DateTimeFormat("en", {
             month: "2-digit",
             day: "2-digit",
             hour: "2-digit",
