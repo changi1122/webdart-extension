@@ -64,6 +64,7 @@ function updateBookmarkIndicator() {
 function addBookmarkIndicator(position) {
     const bookmarkWrapper = document.createElement("div");
     bookmarkWrapper.id = "webdart-bookmark";
+    bookmarkWrapper.style.all = "unset";
     bookmarkWrapper.style.position = "absolute";
     bookmarkWrapper.style.top = position * document.documentElement.scrollHeight + "px";
     bookmarkWrapper.style.right = "10px";
@@ -75,14 +76,14 @@ function addBookmarkIndicator(position) {
     // 미리 정의된 HTML 문자열
     const BOOKMARK_HTML = `
         <span class="webdart-remove-text" style="
-            margin-right: 8px; font-size: 14px; color: black; 
+            all: unset; margin-right: 8px; font-size: 14px; color: black; 
             background-color: rgba(255, 255, 255, 0.8); padding: 4px 6px; 
             border-radius: 4px; box-shadow: 0 0 5px rgba(0,0,0,0.2); 
             display: none;">
             북마크 지우기
         </span>
-        <div class="webdart-bookmark-icon" style="font-size: 24px;
-            width: 40px; height: 40px; border-radius: 4px;
+        <div class="webdart-bookmark-icon" style=" all: unset;
+            font-size: 24px; width: 40px; height: 40px; border-radius: 4px;
             display: inline-flex; justify-content: center;
             align-items: center;">📍</div>
     `;

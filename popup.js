@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     let bookmarks = [];
     let filteredBookmarks = [];
+    let groupedArray = [];
     let currentPage = 1;
     const itemsPerPage = 5;
     
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     
     function groupBookmarksByDomain() {
-        return bookmarks.reduce((groups, { domain, title, url, position, datetime }) => {
+        return filteredBookmarks.reduce((groups, { domain, title, url, position, datetime }) => {
             if (!groups[domain])
                 groups[domain] = [];
             groups[domain].push({ domain, title, url, position, datetime });
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     function renderBookmarks(bookmarkGroups) {
         bookmarkList.innerHTML = "";
     
-        Object.entries(bookmarkGroups).forEach(([domain, items], idx) => {
+        bookmarkGroups.forEach(([domain, items], idx) => {
             const button = document.createElement("button");
             button.className = "accordion ellipsis";
             button.textContent = `${domain} (${items.length})`;
@@ -145,7 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     function filterAndSort() {
         let query = searchInput.value.toLowerCase();
-        filteredBookmarks = bookmarks.filter(({ url }) => url.toLowerCase().includes(query));
+        filteredBookmarks = bookmarks.filter(({ title, url }) => (title + url).toLowerCase().includes(query));
         
         const sortType = sortSelect.value;
         if (sortType === "recent") filteredBookmarks.sort((a, b) => b.position - a.position);
@@ -155,22 +156,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         groupAndRender();
     }
     
-    function paginate(array) {
+    function paginate(groupedArray) {
         const start = (currentPage - 1) * itemsPerPage;
-        return array.slice(start, start + itemsPerPage);
+        const end = start + itemsPerPage;
+        return groupedArray.slice(start, end);
     }
     
     function updatePagination() {
-        const totalPages = Math.ceil(filteredBookmarks.length / itemsPerPage);
+        const totalPages = Math.ceil(groupedArray.length / itemsPerPage);
         pageInfo.textContent = `${currentPage} / ${totalPages}`;
         prevPageBtn.disabled = currentPage === 1;
         nextPageBtn.disabled = currentPage === totalPages;
     }
     
     function groupAndRender() {
-        const paginatedBookmarks = paginate(filteredBookmarks);
-        const grouped = paginatedBookmarks.length > 0 ? groupBookmarksByDomain(paginatedBookmarks) : {};
-        renderBookmarks(grouped);
+        const groupedBookmarks = filteredBookmarks.length > 0 ? groupBookmarksByDomain(filteredBookmarks) : {};
+        groupedArray = Object.entries(groupedBookmarks);
+        const paginatedBookmarks = paginate(groupedArray);
+        renderBookmarks(paginatedBookmarks);
         updatePagination();
     }
 
