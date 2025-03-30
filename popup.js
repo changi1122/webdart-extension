@@ -34,6 +34,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     function renderBookmarks(bookmarkGroups) {
         bookmarkList.innerHTML = "";
+
+        if (bookmarkGroups.length === 0) {
+            document.getElementById("noBookmark").style.display = "block";
+            return;
+        } else {
+            document.getElementById("noBookmark").style.display = "none";
+        }
     
         bookmarkGroups.forEach(([domain, items], idx) => {
             const button = document.createElement("button");
@@ -167,7 +174,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     
     function updatePagination() {
-        const totalPages = Math.ceil(groupedArray.length / itemsPerPage);
+        const totalPages = Math.max(1, Math.ceil(groupedArray.length / itemsPerPage));
         pageInfo.textContent = `${currentPage} / ${totalPages}`;
         prevPageBtn.disabled = currentPage === 1;
         nextPageBtn.disabled = currentPage === totalPages;

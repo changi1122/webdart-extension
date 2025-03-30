@@ -29,6 +29,9 @@
         .delete-button { background: none; border: none; color: gray; font-size: 16px; cursor: pointer; margin-left: 10px; display: inline-flex; }
         .delete-button:hover { color: black; }
 
+        #noBookmark { padding: 20px; margin: 0 auto; }
+        #noBookmark>p { text-align: left; font-size: 14px; color: gray; }
+
         .ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     </style>
 </head>
@@ -40,6 +43,11 @@
         <option value="alphabet">알파벳순</option>
     </select>
     <div id="bookmarkList"></div>
+    <div id="noBookmark">
+        <p>
+            북마크를 추가하려면 <br>웹페이지 오른쪽을 더블클릭하세요.
+        </p>
+    </div>
     <div class="pagination">
         <button id="prevPage">이전</button>
         <span id="pageInfo"></span>
