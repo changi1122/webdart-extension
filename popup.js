@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await chrome.storage.local.get("bookmarks");
         bookmarks = data.bookmarks || [];
 
+        for (const bookmark of bookmarks) {
+            bookmark.datetimeObj = new Date(bookmark.datetime)
+        }
+
         filterAndSort();
     }
     
@@ -41,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
             // 템플릿으로 HTML 구조 생성
             panel.innerHTML = items.map(({ title, url, position, datetime }) => `
-                <div class="bookmark-item" data-url="${url}" data-position="${position}">
+                <div class="bookmark-item" data-url="${url}" data-position="${position}" title="${title}">
                     <div class="bookmark-left">
                         <div class="bookmark-title ellipsis">${title}</div>
                         <div class="bookmark-details">
@@ -149,9 +153,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         filteredBookmarks = bookmarks.filter(({ title, url }) => (title + url).toLowerCase().includes(query));
         
         const sortType = sortSelect.value;
-        if (sortType === "recent") filteredBookmarks.sort((a, b) => b.position - a.position);
-        else if (sortType === "oldest") filteredBookmarks.sort((a, b) => a.position - b.position);
-        else if (sortType === "alphabet") filteredBookmarks.sort((a, b) => a.url.localeCompare(b.url));
+        if (sortType === "recent") filteredBookmarks.sort((a, b) => b.datetimeObj.getTime() - a.datetimeObj.getTime());
+        else if (sortType === "oldest") filteredBookmarks.sort((a, b) => a.datetimeObj.getTime() - b.datetimeObj.getTime());
+        else if (sortType === "alphabet") filteredBookmarks.sort((a, b) => a.domain.localeCompare(b.domain));
         
         groupAndRender();
     }

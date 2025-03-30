@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scroll Bookmark</title>
+    <title>웹 다트</title>
     <script src="popup.js" defer></script>
     <style>
-        body { font-family: Arial, sans-serif; width: 300px; padding: 10px; }
+        body { font-family: Arial, sans-serif; width: 320px; padding: 10px; }
         .accordion { cursor: pointer; padding: 10px; width: 100%; border: 1px solid #ccc; border-radius: 5px; text-align: left; outline: none; font-size: 16px; transition: 0.3s; background-color: #f9f9f9; margin-bottom: 5px; }
         .accordion.active { font-weight: bold; background-color: #e9f0ff; }
         .panel { display: none; padding: 5px 0; overflow: hidden; }
-        .search-box { width: 100%; padding: 6px; font-size: 14px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; background-color: #f9f9f9; }
+        .search-box { width: 100%; padding: 8px; font-size: 14px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; background-color: #f9f9f9; }
 
         #sort { width: 160px; padding: 6px; font-size: 14px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; background-color: #f9f9f9; cursor: pointer; }
         .pagination { display: flex; justify-content: center; margin-top: 10px; }
         .pagination button { padding: 6px 12px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; transition: background-color 0.2s, color 0.2s; cursor: pointer; margin: 0 5px; }
         .pagination button:hover { background-color: #007bff; color: white; border-color: #007bff; }
-        .pagination button:disabled { background-color: #e0e0e0; color: #999; cursor: not-allowed; border-color: #ccc; }
+        .pagination button:disabled { background-color: #f0f0f0; color: #999; cursor: not-allowed; border-color: #ccc; }
         #pageInfo { display: flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 14px; min-width: 50px; }
 
         .bookmark-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer; }
@@ -33,7 +33,7 @@
     </style>
 </head>
 <body>
-    <input type="text" id="search" class="search-box" placeholder="북마크 검색...">
+    <input type="text" id="search" class="search-box" placeholder="북마크 검색">
     <select id="sort">
         <option value="recent">최신순</option>
         <option value="oldest">오래된순</option>
