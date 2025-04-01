@@ -1,3 +1,27 @@
+function localizeHtmlPage()
+{
+    //Localize by replacing __MSG_***__ meta tags
+    var objects = document.getElementsByTagName('html');
+    for (var j = 0; j < objects.length; j++)
+    {
+        var obj = objects[j];
+
+        var valStrH = obj.innerHTML.toString();
+        var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1)
+        {
+            return v1 ? chrome.i18n.getMessage(v1) : "";
+        });
+
+        if(valNewH != valStrH)
+        {
+            obj.innerHTML = valNewH;
+        }
+    }
+}
+
+localizeHtmlPage();
+
+
 document.addEventListener("DOMContentLoaded", async () => {
     const bookmarkList = document.getElementById("bookmarkList");
     const searchInput = document.getElementById("search");
@@ -122,7 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo) {
                             if (tabId === tab.id && changeInfo.status === "complete") {
                                 chrome.tabs.onUpdated.removeListener(listener);
-                                scrollToPosition(tab.id, position);
+                                scrollToPositionStable(tab.id, position);
                             }
                         });
                     });
@@ -150,6 +174,55 @@ document.addEventListener("DOMContentLoaded", async () => {
             func: (pos) => {
                 const position = pos * document.documentElement.scrollHeight - 128;
                 window.scrollTo(0, (position < 0 ? 0 : position));
+
+                window.updateBookmarkIndicator();
+            },
+            args: [position]
+        });
+    }
+
+    function scrollToPositionStable(tabId, position) {
+        chrome.scripting.executeScript({
+            target: { tabId },
+            func: (pos) => {
+                const scrollAfterDOMStable = () => {
+                    const targetRatio = pos;
+                    let lastHeight = document.documentElement.scrollHeight;
+                    let timeoutId;
+    
+                    const observer = new MutationObserver(() => {
+                        const newHeight = document.documentElement.scrollHeight;
+    
+                        // 변화가 감지될 때마다 타이머 초기화
+                        if (timeoutId) clearTimeout(timeoutId);
+    
+                        // 일정 시간 동안 변화가 없으면 스크롤
+                        timeoutId = setTimeout(() => {
+                            observer.disconnect(); // 감지 중단
+                            const targetPos = targetRatio * document.documentElement.scrollHeight - 128;
+                            window.scrollTo(0, Math.max(0, targetPos));
+
+                            window.updateBookmarkIndicator();
+                        }, 200); // 200ms 동안 변화 없으면 안정된 것으로 간주
+    
+                        lastHeight = newHeight;
+                    });
+    
+                    observer.observe(document.body, {
+                        childList: true,
+                        subtree: true,
+                        attributes: true,
+                        characterData: true
+                    });
+                };
+
+                if (document.readyState === 'complete') {
+                    // 이미 페이지가 다 로드된 경우
+                    scrollAfterDOMStable();
+                } else {
+                    // 아직 로딩 중이면 로드 완료 후에 실행
+                    window.addEventListener('load', scrollAfterDOMStable);
+                }
             },
             args: [position]
         });
