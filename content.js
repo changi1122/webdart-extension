@@ -28,8 +28,6 @@ document.addEventListener("dblclick", async (event) => {
 
         window.removeEventListener("resize", updateBookmarkIndicator);
         window.addEventListener("resize", updateBookmarkIndicator);
-
-        console.log(`북마크 저장됨!\n위치: ${relativePosition}%\nurl: ${window.location.href}\n시간: ${new Date()}`);
     }
 });
 
@@ -46,7 +44,6 @@ document.addEventListener("dblclick", async (event) => {
 
     if (bookmark) {
         addBookmarkIndicator(bookmark.position);
-        // TODO: 북마크가 있을 때만 이벤트 추가
         window.addEventListener("resize", updateBookmarkIndicator);
     }
 })();
@@ -59,6 +56,7 @@ function updateBookmarkIndicator() {
         bookmarkIcon.style.top = position * document.documentElement.scrollHeight + "px";
     }
 }
+window.updateBookmarkIndicator = updateBookmarkIndicator;
 
 // 책갈피 아이콘을 추가하는 함수
 function addBookmarkIndicator(position) {
@@ -72,6 +70,7 @@ function addBookmarkIndicator(position) {
     bookmarkWrapper.style.alignItems = "center";
     bookmarkWrapper.style.cursor = "pointer";
     bookmarkWrapper.style.zIndex = "9999";
+    bookmarkWrapper.setAttribute("data-position", position);
 
     // 미리 정의된 HTML 문자열
     const BOOKMARK_HTML = `
@@ -80,7 +79,7 @@ function addBookmarkIndicator(position) {
             background-color: rgba(255, 255, 255, 0.8); padding: 4px 6px; 
             border-radius: 4px; box-shadow: 0 0 5px rgba(0,0,0,0.2); 
             display: none;">
-            북마크 지우기
+            ${chrome.i18n.getMessage("text_remove_bookmark")}
         </span>
         <div class="webdart-bookmark-icon" style=" all: unset;
             font-size: 24px; width: 40px; height: 40px; border-radius: 4px;
@@ -109,6 +108,7 @@ function addBookmarkIndicator(position) {
     bookmarkWrapper.addEventListener("click", function () {
         bookmarkIcon.style.backgroundColor = "rgba(200, 200, 200, 0.5)";
         bookmarkIcon.style.opacity = "0.5";
+        removeBookmarkCurrentPage();
         setTimeout(() => bookmarkWrapper.remove(), 300); // 0.3초 후 삭제
     });
 

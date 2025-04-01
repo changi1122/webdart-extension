@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="__MSG_lang__">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>웹 다트</title>
+    <title>__MSG_extension_name__</title>
     <script src="popup.js" defer></script>
     <style>
         body { font-family: Arial, sans-serif; width: 320px; padding: 10px; }
@@ -13,8 +13,8 @@
         .search-box { width: 100%; padding: 8px; font-size: 14px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; background-color: #f9f9f9; }
 
         #sort { width: 160px; padding: 6px; font-size: 14px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; background-color: #f9f9f9; cursor: pointer; }
-        .pagination { display: flex; justify-content: center; margin-top: 10px; }
-        .pagination button { padding: 6px 12px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; transition: background-color 0.2s, color 0.2s; cursor: pointer; margin: 0 5px; }
+        .pagination { display: flex; justify-content: center; margin-top: 20px; }
+        .pagination button { min-width: 88px; padding: 6px 12px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; transition: background-color 0.2s, color 0.2s; cursor: pointer; margin: 0 5px; }
         .pagination button:hover { background-color: #007bff; color: white; border-color: #007bff; }
         .pagination button:disabled { background-color: #f0f0f0; color: #999; cursor: not-allowed; border-color: #ccc; }
         #pageInfo { display: flex; align-items: center; justify-content: center; padding: 6px 12px; font-size: 14px; min-width: 50px; }
@@ -30,28 +30,28 @@
         .delete-button:hover { color: black; }
 
         #noBookmark { padding: 20px; margin: 0 auto; }
-        #noBookmark>p { text-align: left; font-size: 14px; color: gray; }
+        #noBookmark>p { text-align: left; font-size: 14px; color: gray; text-wrap-style: pretty; }
 
         .ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     </style>
 </head>
 <body>
-    <input type="text" id="search" class="search-box" placeholder="북마크 검색">
+    <input type="text" id="search" class="search-box" placeholder="__MSG_text_search__" autocomplete="off">
     <select id="sort">
-        <option value="recent">최신순</option>
-        <option value="oldest">오래된순</option>
-        <option value="alphabet">알파벳순</option>
+        <option value="recent">__MSG_option_recent__</option>
+        <option value="oldest">__MSG_option_oldest__</option>
+        <option value="alphabet">__MSG_option_atoz__</option>
     </select>
     <div id="bookmarkList"></div>
     <div id="noBookmark">
         <p>
-            북마크를 추가하려면 <br>웹페이지 오른쪽을 더블클릭하세요.
+            __MSG_text_empty_guide__
         </p>
     </div>
     <div class="pagination">
-        <button id="prevPage">이전</button>
+        <button id="prevPage">__MSG_text_prev__</button>
         <span id="pageInfo"></span>
-        <button id="nextPage">다음</button>
+        <button id="nextPage">__MSG_text_next__</button>
     </div>
 </body>
 </html>

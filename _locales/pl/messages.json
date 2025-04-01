@@ -1,0 +1,46 @@
+{
+    "extension_name": {
+        "message": "WebDart",
+        "description": "Extension name"
+    },
+    "extension_description": {
+        "message": "Rozszerzenie do zapisywania pozycji przewijania",
+        "description": "Extension description"
+    },
+    "lang": {
+        "message": "pl",
+        "description": "Language code"
+    },
+    "text_remove_bookmark": {
+        "message": "Usuń zakładkę",
+        "description": "Remove bookmark button text"
+    },
+    "text_search": {
+        "message": "Szukaj zakładek",
+        "description": "Search button placeholder text"
+    },
+    "option_recent": {
+        "message": "Najnowsze",
+        "description": "Sorting option"
+    },
+    "option_oldest": {
+        "message": "Najstarsze",
+        "description": "Sorting option"
+    },
+    "option_atoz": {
+        "message": "Alfabetycznie",
+        "description": "Sorting option"
+    },
+    "text_prev": {
+        "message": "Poprzednia",
+        "description": "Page navigation button text"
+    },
+    "text_next": {
+        "message": "Następna",
+        "description": "Page navigation button text"
+    },
+    "text_empty_guide": {
+        "message": "Aby dodać zakładkę,<br>kliknij dwukrotnie po prawej stronie strony internetowej.",
+        "description": "Empty bookmark guide text"
+    }
+}

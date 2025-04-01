@@ -1,0 +1,46 @@
+{
+    "extension_name": {
+        "message": "ВебДарт",
+        "description": "Extension name"
+    },
+    "extension_description": {
+        "message": "Расширение для сохранения позиции прокрутки",
+        "description": "Extension description"
+    },
+    "lang": {
+        "message": "ru",
+        "description": "Language code"
+    },
+    "text_remove_bookmark": {
+        "message": "Удалить закладку",
+        "description": "Remove bookmark button text"
+    },
+    "text_search": {
+        "message": "Поиск закладок",
+        "description": "Search button placeholder text"
+    },
+    "option_recent": {
+        "message": "Сначала новые",
+        "description": "Sorting option"
+    },
+    "option_oldest": {
+        "message": "Сначала старые",
+        "description": "Sorting option"
+    },
+    "option_atoz": {
+        "message": "По алфавиту",
+        "description": "Sorting option"
+    },
+    "text_prev": {
+        "message": "Предыдущая",
+        "description": "Page navigation button text"
+    },
+    "text_next": {
+        "message": "Следующая",
+        "description": "Page navigation button text"
+    },
+    "text_empty_guide": {
+        "message": "Чтобы добавить закладку,<br>дважды щелкните по правой стороне веб-страницы.",
+        "description": "Empty bookmark guide text"
+    }
+}
