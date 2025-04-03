@@ -12,10 +12,12 @@
     "action": {
       "default_popup": "popup.html",
       "default_icon": {
-        "16": "dart.png",
-        "24": "dart.png",
-        "48": "dart.png",
-        "128": "dart.png"
+        "16": "icon/webdart.png",
+        "24": "icon/webdart.png",
+        "48": "icon/webdart.png",
+        "128": "icon/webdart-128.png",
+        "256": "icon/webdart-256.png",
+        "512": "icon/webdart-512.png"
       }
     },
     "content_scripts": [
