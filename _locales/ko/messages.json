@@ -1,0 +1,46 @@
+{
+    "extension_name": {
+        "message": "웹 다트",
+        "description": "확장 프로그램 이름"
+    },
+    "extension_description": {
+        "message": "스크롤 위치를 북마크하는 확장 프로그램",
+        "description": "확장 프로그램 설명"
+    },
+    "lang": {
+        "message": "ko",
+        "description": "언어 코드"
+    },
+    "text_remove_bookmark": {
+        "message": "북마크 지우기",
+        "description": "북마크 지우기 버튼 텍스트"
+    },
+    "text_search": {
+        "message": "북마크 검색",
+        "description": "검색 버튼 placeholder 텍스트"
+    },
+    "option_recent": {
+        "message": "최신순",
+        "description": "정렬 조건"
+    },
+    "option_oldest": {
+        "message": "오래된순",
+        "description": "정렬 조건"
+    },
+    "option_atoz": {
+        "message": "알파벳순",
+        "description": "정렬 조건"
+    },
+    "text_prev": {
+        "message": "이전",
+        "description": "페이지 이동 버튼 텍스트"
+    },
+    "text_next": {
+        "message": "다음",
+        "description": "페이지 이동 버튼 텍스트"
+    },
+    "text_empty_guide": {
+        "message": "북마크를 추가하려면 <br>웹페이지 오른쪽을 더블클릭하세요.",
+        "description": "빈 북마크 가이드 텍스트"
+    }
+}

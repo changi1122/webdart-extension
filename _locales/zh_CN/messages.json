@@ -1,0 +1,46 @@
+{
+    "extension_name": {
+        "message": "网页飞镖",
+        "description": "Extension name"
+    },
+    "extension_description": {
+        "message": "滚动位置书签扩展程序",
+        "description": "Extension description"
+    },
+    "lang": {
+        "message": "zh_CN",
+        "description": "Language code"
+    },
+    "text_remove_bookmark": {
+        "message": "删除书签",
+        "description": "Remove bookmark button text"
+    },
+    "text_search": {
+        "message": "搜索书签",
+        "description": "Search button placeholder text"
+    },
+    "option_recent": {
+        "message": "最新优先",
+        "description": "Sorting option"
+    },
+    "option_oldest": {
+        "message": "最早优先",
+        "description": "Sorting option"
+    },
+    "option_atoz": {
+        "message": "按字母排序",
+        "description": "Sorting option"
+    },
+    "text_prev": {
+        "message": "上一页",
+        "description": "Page navigation button text"
+    },
+    "text_next": {
+        "message": "下一页",
+        "description": "Page navigation button text"
+    },
+    "text_empty_guide": {
+        "message": "要添加书签，<br>请双击网页右侧。",
+        "description": "Empty bookmark guide text"
+    }
+}

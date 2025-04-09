@@ -1,0 +1,46 @@
+{
+    "extension_name": {
+        "message": "WebDart",
+        "description": "Extension name"
+    },
+    "extension_description": {
+        "message": "Scroll position bookmarking extension",
+        "description": "Extension description"
+    },
+    "lang": {
+        "message": "en",
+        "description": "Language code"
+    },
+    "text_remove_bookmark": {
+        "message": "Remove Bookmark",
+        "description": "Remove bookmark button text"
+    },
+    "text_search": {
+        "message": "Search Bookmarks",
+        "description": "Search button placeholder text"
+    },
+    "option_recent": {
+        "message": "Newest First",
+        "description": "Sorting option"
+    },
+    "option_oldest": {
+        "message": "Oldest First",
+        "description": "Sorting option"
+    },
+    "option_atoz": {
+        "message": "Alphabetical",
+        "description": "Sorting option"
+    },
+    "text_prev": {
+        "message": "Previous",
+        "description": "Page navigation button text"
+    },
+    "text_next": {
+        "message": "Next",
+        "description": "Page navigation button text"
+    },
+    "text_empty_guide": {
+        "message": "To add a bookmark,<br>double-click the right side of the webpage.",
+        "description": "Empty bookmark guide text"
+    }
+}

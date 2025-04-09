@@ -1,8 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "Scroll Bookmark",
-    "version": "1.0",
-    "description": "스크롤 위치를 북마크하는 크롬 익스텐션",
+    "name": "__MSG_extension_name__",
+    "version": "0.1",
+    "default_locale": "en",
+    "description": "__MSG_extension_description__",
     "permissions": ["storage", "scripting"],
     "host_permissions": ["<all_urls>"],
     "background": {
@@ -11,9 +12,12 @@
     "action": {
       "default_popup": "popup.html",
       "default_icon": {
-        "16": "icon.png",
-        "48": "icon.png",
-        "128": "icon.png"
+        "16": "icon/webdart.png",
+        "24": "icon/webdart.png",
+        "48": "icon/webdart.png",
+        "128": "icon/webdart-128.png",
+        "256": "icon/webdart-256.png",
+        "512": "icon/webdart-512.png"
       }
     },
     "content_scripts": [
